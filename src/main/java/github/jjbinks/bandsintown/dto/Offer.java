@@ -1,4 +1,4 @@
-package com.jjbings.bandsintown.dto;
+package github.jjbinks.bandsintown.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

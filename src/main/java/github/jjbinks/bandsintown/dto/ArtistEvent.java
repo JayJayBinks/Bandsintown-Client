@@ -1,4 +1,4 @@
-package com.jjbings.bandsintown.dto;
+package github.jjbinks.bandsintown.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,6 +25,8 @@ public class ArtistEvent {
     private String id;
     @JsonProperty("artist")
     private String artist;
+    @JsonProperty("artist_event_id")
+    private String artistEventId;
     @JsonProperty("artist_id")
     private String artistId;
     @JsonProperty("url")
@@ -48,6 +50,16 @@ public class ArtistEvent {
     @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
+    }
+
+    @JsonProperty("artist_event_id")
+    public String getArtistEventId() {
+        return artistEventId;
+    }
+
+    @JsonProperty("artist_event_id")
+    public void setArtistEventId(String artistEventId) {
+        this.artistEventId = artistEventId;
     }
 
     @JsonProperty("artist")
