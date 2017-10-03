@@ -3,7 +3,6 @@ package github.jjbinks.bandsintown.impl.resource;
 import github.jjbinks.bandsintown.exception.BITException;
 
 import javax.ws.rs.core.UriBuilder;
-import java.util.Objects;
 
 public abstract class ArtistResource extends BITResourceImpl {
 
@@ -15,7 +14,6 @@ public abstract class ArtistResource extends BITResourceImpl {
 
     public ArtistResource(String artist, UriBuilder uriBuilder, String httpMethod, Class dtoClass) {
         super(uriBuilder.build(artist), httpMethod, dtoClass);
-        Objects.requireNonNull(artist);
         this.artist = artist;
     }
 

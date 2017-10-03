@@ -11,7 +11,6 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.client.Client;
 import java.util.List;
-import java.util.Objects;
 
 public class BITAPIImpl implements BITAPI {
 
@@ -22,8 +21,6 @@ public class BITAPIImpl implements BITAPI {
     }
 
     public BITAPIImpl(Client restClient, String appId) {
-        Objects.requireNonNull(restClient);
-        Objects.requireNonNull(appId);
         bitAPIClient = new BITAPIClientImpl(restClient, appId);
     }
 

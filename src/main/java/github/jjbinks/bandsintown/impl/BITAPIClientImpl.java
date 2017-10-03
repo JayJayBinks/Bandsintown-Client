@@ -2,12 +2,15 @@ package github.jjbinks.bandsintown.impl;
 
 import github.jjbinks.bandsintown.api.BITAPIClient;
 import github.jjbinks.bandsintown.api.BITResource;
+import github.jjbinks.bandsintown.dto.BITError;
 import github.jjbinks.bandsintown.exception.BITException;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.Objects;
 
 import static github.jjbinks.bandsintown.util.BITParameters.APPID_QUERY_PARAM;
 
@@ -19,6 +22,10 @@ public class BITAPIClientImpl implements BITAPIClient{
     private final String appId;
 
     public BITAPIClientImpl(Client client, String appId) {
+        Objects.requireNonNull(client);
+        if(StringUtils.isEmpty(appId) || StringUtils.isBlank(appId)){
+            throw new IllegalArgumentException("appId can not be empty!");
+        }
         this.restClient = client;
         this.appId = appId;
     }
@@ -43,9 +50,9 @@ public class BITAPIClientImpl implements BITAPIClient{
             case OK:
                 return response.readEntity(String.class);
             case FORBIDDEN:
-                throw new BITException("Access was forbidden. Is the appId set?");
+                throw new BITException(responseStatus, response.readEntity(BITError.class).toString());
             default:
-                throw new BITException("Response type not identified HTTP:" + responseStatus);
+                throw new BITException(responseStatus);
         }
 
     }
