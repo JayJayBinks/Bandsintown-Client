@@ -3,35 +3,42 @@ package github.jjbinks.bandsintown.impl.resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import github.jjbinks.bandsintown.api.BITResource;
 import github.jjbinks.bandsintown.exception.BITException;
+import javassist.scopedpool.SoftValueHashMap;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class BITResourceImpl implements BITResource {
     protected static final ObjectMapper MAPPER = new ObjectMapper();
 
     protected final URI targetURI;
     protected final String httpMethod;
-
-    protected Class dtoClass;
+    protected final Optional<Class> dtoClassOptional;
+    protected final Map<String, Object> additionalQueryParams;
 
     public BITResourceImpl(URI targetURI, String httpMethod) {
-       this(targetURI, httpMethod, null);
+       this(targetURI, httpMethod, Optional.empty(), new HashMap<>());
     }
 
-    public BITResourceImpl(URI targetURI, String httpMethod, Class dtoClass) {
+    public BITResourceImpl(URI targetURI, String httpMethod, Optional<Class> dtoClass,
+                           Map<String, Object> additionalQueryParams) {
+
         Objects.requireNonNull(targetURI);
         Objects.requireNonNull(httpMethod);
         this.targetURI = targetURI;
         this.httpMethod = httpMethod;
-        this.dtoClass = dtoClass;
+        this.dtoClassOptional = dtoClass;
+        this.additionalQueryParams = additionalQueryParams;
     }
 
     protected abstract void validateResponse(String json) throws BITException;
 
     public <T> T readResponseEntity(String json) throws BITException {
-        Objects.requireNonNull(dtoClass);
+        Class dtoClass = dtoClassOptional.orElseThrow(() -> new BITException("DTO class needs to be set!"));
         validateResponse(json);
         try {
             return (T) MAPPER.readValue(json, dtoClass);
@@ -51,14 +58,12 @@ public abstract class BITResourceImpl implements BITResource {
     }
 
     @Override
-    public Class getDtoClass() {
-        return dtoClass;
+    public Optional<Class> getDtoClass() {
+        return dtoClassOptional;
     }
 
     @Override
-    public void setDtoClass(Class dtoClass) {
-        this.dtoClass = dtoClass;
+    public Map<String, Object> getAdditionalQuereyParams() {
+        return additionalQueryParams;
     }
-
-
 }

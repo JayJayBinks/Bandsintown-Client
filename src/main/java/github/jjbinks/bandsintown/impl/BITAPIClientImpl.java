@@ -7,26 +7,26 @@ import github.jjbinks.bandsintown.exception.BITException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import static github.jjbinks.bandsintown.util.BITParameters.APPID_QUERY_PARAM;
 
-
 public class BITAPIClientImpl implements BITAPIClient{
 
-    private Client restClient;
+    private final Client restClient;
     //Mandatory parameter to be sent with each request
     private final String appId;
 
     public BITAPIClientImpl(Client client, String appId) {
         Objects.requireNonNull(client);
-        if(StringUtils.isEmpty(appId) || StringUtils.isBlank(appId)){
-            throw new IllegalArgumentException("appId can not be empty!");
-        }
         this.restClient = client;
+        //appId validation should be handled by server
         this.appId = appId;
     }
 
@@ -34,10 +34,7 @@ public class BITAPIClientImpl implements BITAPIClient{
     public <T> T getBITResource(BITResource bitResource) throws BITException {
         return bitResource.readResponseEntity(
                         handleResponse(
-                                restCall(
-                                        bitResource.getHttpMethod(),
-                                        bitResource.getTargetURI(),
-                                        appId)));
+                                restCall(bitResource, appId)));
     }
 
 
@@ -50,6 +47,7 @@ public class BITAPIClientImpl implements BITAPIClient{
             case OK:
                 return response.readEntity(String.class);
             case FORBIDDEN:
+            case BAD_REQUEST:
                 throw new BITException(responseStatus, response.readEntity(BITError.class).toString());
             default:
                 throw new BITException(responseStatus);
@@ -57,11 +55,17 @@ public class BITAPIClientImpl implements BITAPIClient{
 
     }
 
-    private Response restCall(String httpMethod, URI target, String appId){
-        return restClient.target(target)
-                .queryParam(APPID_QUERY_PARAM, appId)
-                .request(MediaType.APPLICATION_JSON_TYPE)
-                .method(httpMethod);
+    private Response restCall(BITResource bitResource, String appId){
+        WebTarget webTarget =  restClient.target(bitResource.getTargetURI())
+                .queryParam(APPID_QUERY_PARAM, appId);
+
+        Map<String, Object> additionalQueryParams = bitResource.getAdditionalQuereyParams();
+
+        for(Map.Entry<String, Object> entry : additionalQueryParams.entrySet()) {
+            webTarget = webTarget.queryParam(entry.getKey(), entry.getValue());
+        }
+
+        return webTarget.request(MediaType.APPLICATION_JSON_TYPE).method(bitResource.getHttpMethod());
     }
 
     @Override

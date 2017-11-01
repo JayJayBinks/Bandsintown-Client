@@ -10,7 +10,10 @@ import github.jjbinks.bandsintown.impl.resource.ArtistInfoResource;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.client.Client;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class BITAPIImpl implements BITAPI {
 
@@ -28,6 +31,13 @@ public class BITAPIImpl implements BITAPI {
     @Override
     public List<ArtistEvent> getArtistEvents(String artist) throws BITException {
         return bitAPIClient.getBITResource(new ArtistEventsResource(artist));
+    }
+
+    @Override
+    public List<ArtistEvent> getArtistEvents(String artist, LocalDate fromDate, LocalDate toDate) throws BITException {
+        Objects.requireNonNull(fromDate);
+        Objects.requireNonNull(toDate);
+        return bitAPIClient.getBITResource(new ArtistEventsResource(artist, fromDate, toDate));
     }
 
     @Override

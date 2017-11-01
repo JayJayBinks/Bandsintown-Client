@@ -8,12 +8,10 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
+import java.time.LocalDate;
 import java.util.List;
 
-import static github.jjbinks.bandsintown.TestParameters.INVALID_APP_ID;
-import static github.jjbinks.bandsintown.TestParameters.INVALID_ARTIST;
-import static github.jjbinks.bandsintown.TestParameters.VALID_APP_ID;
-import static github.jjbinks.bandsintown.TestParameters.VALID_ARTIST;
+import static github.jjbinks.bandsintown.TestParameters.*;
 
 public class BITAPIImplTest {
 
@@ -29,6 +27,28 @@ public class BITAPIImplTest {
         artistEventList = bitapi.getArtistEvents(VALID_ARTIST);
         //then
         assert(artistEventList.isEmpty() == false);
+    }
+
+    @Test
+    public void getArtistEventsWithDate() throws Exception {
+        //given
+        bitapi = new BITAPIImpl(VALID_APP_ID);
+        LocalDate fromDate = LocalDate.now();
+        LocalDate toDate = fromDate.plusYears(10);
+        //when
+        artistEventList = bitapi.getArtistEvents(VALID_ARTIST, fromDate , toDate);
+        //then
+        assert(artistEventList.isEmpty() == false);
+    }
+
+    @Test(expected = BITException.class)
+    public void getArtistEventsWithInvalidDate() throws Exception {
+        //given
+        bitapi = new BITAPIImpl(VALID_APP_ID);
+        LocalDate fromDate = LocalDate.now();
+        LocalDate toDate = fromDate.minusYears(10);
+        //when
+        artistEventList = bitapi.getArtistEvents(VALID_ARTIST, fromDate , toDate);
     }
 
     @Test(expected = BITException.class)
@@ -72,6 +92,8 @@ public class BITAPIImplTest {
     public void getArtistWithInvalidAppId() throws Exception {
         //given
         bitapi = new BITAPIImpl(INVALID_APP_ID);
+        //when
+        artist = bitapi.getArtist(VALID_ARTIST);
     }
 
 
