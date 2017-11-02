@@ -1,4 +1,6 @@
 # Bandsintown-API
+[![Build Status](https://api.travis-ci.org/JayJayBinks/Bandsintown-API.svg?branch=master)](https://travis-ci.org/JayJayBinks/Bandsintown-API)
+
 This is a Java 8 Client for accessing the Bandsintown API v3
 https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0
 
