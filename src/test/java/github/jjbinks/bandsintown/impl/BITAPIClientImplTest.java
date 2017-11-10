@@ -24,9 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static github.jjbinks.bandsintown.TestParametersUnitTest.INVALID_APP_ID;
-import static github.jjbinks.bandsintown.TestParametersUnitTest.VALID_APP_ID;
-import static github.jjbinks.bandsintown.TestParametersUnitTest.VALID_ARTIST;
+import static github.jjbinks.bandsintown.TestParametersUnitTest.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -80,7 +78,7 @@ public class BITAPIClientImplTest{
         mockRestClient();
         bitapiClient = new BITAPIClientImpl(client, VALID_APP_ID);
         //when
-        Artist artist =  bitapiClient.getBITResource(new ArtistInfoResource(VALID_ARTIST));
+        Artist artist =  bitapiClient.getBITResource(new ArtistInfoResource(INVALID_ARTIST));
     }
 
     @Test

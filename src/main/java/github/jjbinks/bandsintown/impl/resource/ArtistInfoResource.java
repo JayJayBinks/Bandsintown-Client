@@ -11,7 +11,6 @@ import static github.jjbinks.bandsintown.util.BITParameters.ARTIST_URI_BUILDER;
 public class ArtistInfoResource extends ArtistResource {
 
     public ArtistInfoResource(String artist) {
-        //TODO are too many parameters used here?
         super(artist, ARTIST_URI_BUILDER, HttpMethod.GET, Artist.class, new HashMap<>());
     }
 

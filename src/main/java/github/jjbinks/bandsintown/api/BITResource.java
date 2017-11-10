@@ -15,5 +15,5 @@ public interface BITResource {
     URI getTargetURI();
     String getHttpMethod();
     Optional<Class> getDtoClass();
-    Map<String, Object> getAdditionalQuereyParams();
+    Map<String, Object> getAdditionalQueryParams();
 }

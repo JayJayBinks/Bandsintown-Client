@@ -4,16 +4,13 @@ import github.jjbinks.bandsintown.api.BITAPIClient;
 import github.jjbinks.bandsintown.api.BITResource;
 import github.jjbinks.bandsintown.dto.BITError;
 import github.jjbinks.bandsintown.exception.BITException;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 import static github.jjbinks.bandsintown.util.BITParameters.APPID_QUERY_PARAM;
 
@@ -59,7 +56,7 @@ public class BITAPIClientImpl implements BITAPIClient{
         WebTarget webTarget =  restClient.target(bitResource.getTargetURI())
                 .queryParam(APPID_QUERY_PARAM, appId);
 
-        Map<String, Object> additionalQueryParams = bitResource.getAdditionalQuereyParams();
+        Map<String, Object> additionalQueryParams = bitResource.getAdditionalQueryParams();
 
         for(Map.Entry<String, Object> entry : additionalQueryParams.entrySet()) {
             webTarget = webTarget.queryParam(entry.getKey(), entry.getValue());

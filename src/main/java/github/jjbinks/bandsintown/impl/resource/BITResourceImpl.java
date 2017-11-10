@@ -12,6 +12,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * All REST resources should extend this class.
+ * Either DTO class must be set or readResponseEntity overriden.
+ */
 public abstract class BITResourceImpl implements BITResource {
     protected static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -63,7 +67,7 @@ public abstract class BITResourceImpl implements BITResource {
     }
 
     @Override
-    public Map<String, Object> getAdditionalQuereyParams() {
+    public Map<String, Object> getAdditionalQueryParams() {
         return additionalQueryParams;
     }
 }
