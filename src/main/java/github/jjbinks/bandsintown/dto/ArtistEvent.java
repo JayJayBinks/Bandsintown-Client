@@ -1,5 +1,6 @@
 package github.jjbinks.bandsintown.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({
         "id",
         "artist",
@@ -15,6 +17,7 @@ import java.util.List;
         "url",
         "on_sale_datetime",
         "datetime",
+        "description",
         "venue",
         "offers",
         "lineup"
@@ -35,6 +38,8 @@ public class ArtistEvent {
     private String onSaleDatetime;
     @JsonProperty("datetime")
     private String datetime;
+    @JsonProperty("description")
+    private String description;
     @JsonProperty("venue")
     private Venue venue;
     @JsonProperty("offers")
@@ -110,6 +115,16 @@ public class ArtistEvent {
     @JsonProperty("datetime")
     public void setDatetime(String datetime) {
         this.datetime = datetime;
+    }
+
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @JsonProperty("venue")
