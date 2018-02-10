@@ -1,8 +1,8 @@
 package github.jjbinks.bandsintown.impl;
 
 import github.jjbinks.bandsintown.api.BITAPIClient;
-import github.jjbinks.bandsintown.api.BITResource;
 import github.jjbinks.bandsintown.dto.BITError;
+import github.jjbinks.bandsintown.api.BITResource;
 import github.jjbinks.bandsintown.exception.BITException;
 
 import javax.ws.rs.client.Client;
@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import static github.jjbinks.bandsintown.util.BITParameters.APPID_QUERY_PARAM;
 
-public class BITAPIClientImpl implements BITAPIClient{
+public class BITAPIClientImpl implements BITAPIClient {
 
     private final Client restClient;
     //Mandatory parameter to be sent with each request

@@ -3,7 +3,6 @@ package github.jjbinks.bandsintown.impl.resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import github.jjbinks.bandsintown.api.BITResource;
 import github.jjbinks.bandsintown.exception.BITException;
-import javassist.scopedpool.SoftValueHashMap;
 
 import java.io.IOException;
 import java.net.URI;

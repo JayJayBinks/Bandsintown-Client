@@ -1,23 +1,20 @@
 package github.jjbinks.bandsintown.impl.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import github.jjbinks.bandsintown.dto.Artist;
 import github.jjbinks.bandsintown.dto.ArtistEvent;
+import github.jjbinks.bandsintown.TestParametersUnitTest;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static github.jjbinks.bandsintown.TestParametersUnitTest.VALID_ARTIST;
-import static org.junit.Assert.*;
-
 public class ArtistEventsResourceTest {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private List<ArtistEvent> mockArtistEvents = new ArrayList<>();
 
-    private ArtistEventsResource artistEventsResource = new ArtistEventsResource(VALID_ARTIST);
+    private ArtistEventsResource artistEventsResource = new ArtistEventsResource(TestParametersUnitTest.VALID_ARTIST);
 
     @Before
     public void setUp() throws Exception {

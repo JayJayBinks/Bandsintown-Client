@@ -1,17 +1,16 @@
 package github.jjbinks.bandsintown.impl;
 
+import github.jjbinks.bandsintown.impl.resource.ArtistInfoResource;
 import github.jjbinks.bandsintown.api.BITAPI;
 import github.jjbinks.bandsintown.api.BITAPIClient;
 import github.jjbinks.bandsintown.dto.Artist;
 import github.jjbinks.bandsintown.dto.ArtistEvent;
 import github.jjbinks.bandsintown.exception.BITException;
 import github.jjbinks.bandsintown.impl.resource.ArtistEventsResource;
-import github.jjbinks.bandsintown.impl.resource.ArtistInfoResource;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.client.Client;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 

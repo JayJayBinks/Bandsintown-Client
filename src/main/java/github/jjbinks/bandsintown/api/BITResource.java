@@ -4,7 +4,6 @@ import github.jjbinks.bandsintown.exception.BITException;
 
 import java.net.URI;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**

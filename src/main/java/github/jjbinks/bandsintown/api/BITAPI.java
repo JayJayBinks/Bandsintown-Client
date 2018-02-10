@@ -5,7 +5,6 @@ import github.jjbinks.bandsintown.dto.ArtistEvent;
 import github.jjbinks.bandsintown.exception.BITException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BITAPI {

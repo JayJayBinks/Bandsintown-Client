@@ -5,7 +5,6 @@ import github.jjbinks.bandsintown.exception.BITException;
 import javax.ws.rs.core.UriBuilder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 public abstract class ArtistResource extends BITResourceImpl {
