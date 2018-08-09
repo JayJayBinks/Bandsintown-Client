@@ -36,6 +36,9 @@ public class BITAPIImpl implements BITAPI {
     public List<ArtistEvent> getArtistEvents(String artist, LocalDate fromDate, LocalDate toDate) throws BITException {
         Objects.requireNonNull(fromDate);
         Objects.requireNonNull(toDate);
+        if(toDate.isBefore(fromDate)){
+            throw new BITException("toDate cannot be before fromDate!");
+        }
         return bitAPIClient.getBITResource(new ArtistEventsResource(artist, fromDate, toDate));
     }
 

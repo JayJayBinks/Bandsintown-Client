@@ -21,7 +21,6 @@ public class ArtistEventsResource extends ArtistResource {
     }
 
     public ArtistEventsResource(String artist, LocalDate fromDate, LocalDate toDate) {
-
         super(artist, ARTIST_EVENTS_URI_BUILDER, HttpMethod.GET, null, datesToQueryParams(fromDate, toDate));
     }
 
@@ -37,7 +36,8 @@ public class ArtistEventsResource extends ArtistResource {
     @Override
     public <T> T readResponseEntity(String json) throws BITException {
         try {
-            return MAPPER.readValue(json, new TypeReference<List<ArtistEvent>>(){});
+            return MAPPER.readValue(json, new TypeReference<List<ArtistEvent>>() {
+            });
         } catch (IOException e) {
             throw new BITException("Response could not be read!", e);
         }
